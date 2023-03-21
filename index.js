@@ -351,7 +351,7 @@ apiRoutes.post("/apikeys", verifyToken, async function (req, res) {
 });
 
 
-app.use('/ldap/api/v1', apiRoutes);
+app.use(process.env.API_ROUTES_PATH, apiRoutes);
 
 var server = app.listen(process.env.PORT || 3002, function () {
 	var port = server.address().port;
