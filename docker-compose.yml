@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  ldap-api:
+    container_name: ldap-api
+    image: ghcr.io/kth-biblioteket/ldap-api:${REPO_TYPE}
+    restart: always
+    env_file:
+      - ./ldap-api.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ldap-api.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`${PATHPREFIX}`)"
+      - "traefik.http.routers.ldap-api.middlewares=ldap-api-stripprefix"
+      - "traefik.http.middlewares.ldap-api-stripprefix.stripprefix.prefixes=${PATHPREFIX}"
+      - "traefik.http.routers.ldap-api.entrypoints=websecure"
+      - "traefik.http.routers.ldap-api.tls=true"
+      - "traefik.http.routers.ldap-api.tls.certresolver=myresolver"
+    networks:
+      - "apps-net"
+
+networks:
+  apps-net:
+    external: true
