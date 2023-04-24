@@ -89,7 +89,6 @@ apiRoutes.get('/', function (req, res) {
 
 apiRoutes.post("/login", async function (req, res) {
 	if(process.env.ENVIRONMENT=='development') {
-		console.log(req)
 	}
 	try {
 		await client.bind(req.body.username, req.body.password);
