@@ -88,6 +88,9 @@ apiRoutes.get('/', function (req, res) {
 
 
 apiRoutes.post("/login", async function (req, res) {
+	if(process.env.ENVIRONMENT=='development') {
+		console.log(req)
+	}
 	try {
 		await client.bind(req.body.username, req.body.password);
 		var token = jwt.sign({ id: req.body.username }, process.env.SECRET, {
@@ -349,7 +352,6 @@ apiRoutes.post("/apikeys", verifyToken, async function (req, res) {
 		res.status(400).send({ error: e });
 	}
 });
-
 
 app.use(process.env.API_ROUTES_PATH, apiRoutes);
 
