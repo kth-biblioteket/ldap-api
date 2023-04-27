@@ -5,8 +5,6 @@ import jwt from "jsonwebtoken";
 import { Client } from 'ldapts';
 import { verifyToken } from './VerifyToken.js';
 
-//import xxx from './VerifyToken.js';
-
 const app = express();
 
 const config = {
@@ -48,12 +46,6 @@ const sizeLimit = parseInt(process.env.SIZE_LIMIT)
 const bindDN = process.env.LDAP_USER;
 const password = process.env.LDAP_PASSWORD;
 
-try {
-	await client.bind(bindDN, password);
-} catch (ex) {
-	console.log("error code: " + ex.code)
-}
-
 const searchDN = 'dc=ug,dc=kth,dc=se';
 
 app.set('apikeyread', process.env.APIKEYREAD);
@@ -83,7 +75,7 @@ app.use(function (req, res, next) {
 var apiRoutes = express.Router();
 
 apiRoutes.get('/', function (req, res) {
-	res.send('Hello! The API is at https://lib.kth.se/ldap/api/v1');
+	res.send('KTH Biblioteket ldap-api');
 });
 
 
@@ -108,6 +100,7 @@ apiRoutes.get('/logout', function (req, res) {
 
 apiRoutes.get("/kthid/:kthid/", verifyToken, async function (req, res, next) {
 	try {
+		await client.bind(bindDN, password);
 		const { searchEntries, searchReferences } = await client.search(
 			searchDN,
 			{
@@ -139,6 +132,7 @@ apiRoutes.get("/kthid/:kthid/", verifyToken, async function (req, res, next) {
 
 apiRoutes.get("/account/:account/", verifyToken, async function (req, res, next) {
 	try {
+		await client.bind(bindDN, password);
 		const { searchEntries, searchReferences } = await client.search(
 			searchDN,
 			{
@@ -170,6 +164,7 @@ apiRoutes.get("/account/:account/", verifyToken, async function (req, res, next)
 
 apiRoutes.get("/userprincipalname/:userprincipalname/", verifyToken, async function (req, res, next) {
 	try {
+		await client.bind(bindDN, password);
 		const { searchEntries, searchReferences } = await client.search(
 			searchDN,
 			{
@@ -201,6 +196,7 @@ apiRoutes.get("/userprincipalname/:userprincipalname/", verifyToken, async funct
 
 apiRoutes.get("/users/:name/", verifyToken, async function (req, res, next) {
 	try {
+		await client.bind(bindDN, password);
 		const { searchEntries, searchReferences } = await client.search(
 			searchDN,
 			{
@@ -248,6 +244,7 @@ apiRoutes.get("/users/:name/", verifyToken, async function (req, res, next) {
 
 apiRoutes.post("/divamonkey", verifyToken, async function (req, res) {
 	try {
+		await client.bind(bindDN, password);
 		const { searchEntries, searchReferences } = await client.search(
 			searchDN,
 			{
@@ -301,6 +298,7 @@ apiRoutes.post("/divamonkey", verifyToken, async function (req, res) {
 
 apiRoutes.post("/apikeys", verifyToken, async function (req, res) {
 	try {
+		await client.bind(bindDN, password);
 		const { searchEntries, searchReferences } = await client.search(
 			searchDN,
 			{
