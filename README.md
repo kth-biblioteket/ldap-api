@@ -42,8 +42,8 @@ networks:
 3.  Skapa och anpassa .env(för composefilen) i foldern
 ```
 PATHPREFIX=/ldap
-DOMAIN_NAME=api-ref.lib.kth.se
-REPO_TYPE=ref
+DOMAIN_NAME=api.lib.kth.se
+REPO_TYPE=main
 ```
 4.  Skapa och anpassa ldap-api.env (för applikationen) i foldern
 ```
