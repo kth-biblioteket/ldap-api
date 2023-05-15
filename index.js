@@ -82,14 +82,19 @@ apiRoutes.get('/', function (req, res) {
 apiRoutes.post("/login", async function (req, res) {
 	if(process.env.ENVIRONMENT=='development') {
 	}
-	try {
-		await client.bind(req.body.username, req.body.password);
-		var token = jwt.sign({ id: req.body.username }, process.env.SECRET, {
-			expiresIn: "7d"
-		});
-		res.status(200).send({ auth: true, token: token });
-	} catch (ex) {
-		res.status(400).send({ auth: false, error: "wrong credentials" });
+	
+	if (req.body.username != '' && req.body.password != '') {
+		try {
+			await client.bind(req.body.username, req.body.password);
+			var token = jwt.sign({ id: req.body.username }, process.env.SECRET, {
+				expiresIn: "7d"
+			});
+			res.status(200).send({ auth: true, token: token });
+		} catch (ex) {
+			res.status(400).send({ auth: false, error: "wrong credentials" });
+		}
+	} else {
+		res.status(400).send({ auth: false, error: "Please provide user/password" });
 	}	
 });
 
