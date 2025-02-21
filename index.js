@@ -180,7 +180,39 @@ apiRoutes.get("/userprincipalname/:userprincipalname/", verifyToken, async funct
 					'lockoutTime', 'whenCreated', 'whenChanged',
 					'pwdLastSet', 'lastLogon', 'userAccountControl',
 					'employeeID', 'employeeType', 'sn', 'givenName', 'initials', 'cn', 'displayName',
-					'comment', 'description', 'title', 'department', 'memberOf', 'ugAffiliation',
+					'comment', 'description', 'title', 'department', 'memberOf', 'ugAffiliation','ugOrcid','kthOrcid',
+					'ugPrimaryAffiliation', 'company', 'uid',
+					'ugClass', 'ugKthid', 'ugVersion', 'ugUsername', 'ugPhone', 'kthPAGroupMembership', 'textEncodedORAddress',
+					'streetAddress', 'l', 'postalCode', 'c', 'telephoneNumber', 'homePhone',
+					'proxyAddresses', 'extensionAttribute1', 'extensionAttribute2', 'description']
+			}
+		);
+		if (searchEntries.length == 0) {
+			res.status(201).send({ 'result': 'Userprincipalname ' + req.params.userprincipalname + ' not found' });
+			return;
+		}
+		if (searchEntries.length > 0) {
+			res.json({ "ugusers": searchEntries });
+		}
+	} catch(e) {
+		res.status(400).send({ error: e });
+	}
+});
+
+apiRoutes.get("/orcid/:orcid/", verifyToken, async function (req, res, next) {
+	try {
+		await client.bind(bindDN, password);
+		const { searchEntries, searchReferences } = await client.search(
+			searchDN,
+			{
+				filter: `(|(ugOrcid=${req.params.orcid})(kthOrcid=${req.params.orcid}))`,
+				sizeLimit: sizeLimit,
+				attributes: ['dn',
+					'userPrincipalName', 'sAMAccountName', 'mail',
+					'lockoutTime', 'whenCreated', 'whenChanged',
+					'pwdLastSet', 'lastLogon', 'userAccountControl',
+					'employeeID', 'employeeType', 'sn', 'givenName', 'initials', 'cn', 'displayName',
+					'comment', 'description', 'title', 'department', 'memberOf', 'ugAffiliation','ugOrcid','kthOrcid',
 					'ugPrimaryAffiliation', 'company', 'uid',
 					'ugClass', 'ugKthid', 'ugVersion', 'ugUsername', 'ugPhone', 'kthPAGroupMembership', 'textEncodedORAddress',
 					'streetAddress', 'l', 'postalCode', 'c', 'telephoneNumber', 'homePhone',
