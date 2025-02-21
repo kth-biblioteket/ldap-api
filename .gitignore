@@ -2,3 +2,7 @@ config.js
 /node_modules
 .env
 *.env
+dev
+Dockerfile-dev
+docker-compose-dev.yml
+package-dev.json
