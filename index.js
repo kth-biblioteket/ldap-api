@@ -220,7 +220,7 @@ apiRoutes.get("/orcid/:orcid/", verifyToken, async function (req, res, next) {
 			}
 		);
 		if (searchEntries.length == 0) {
-			res.status(201).send({ 'result': 'Userprincipalname ' + req.params.userprincipalname + ' not found' });
+			res.status(201).send({ 'result': 'Orcid ' + req.params.orcid + ' not found' });
 			return;
 		}
 		if (searchEntries.length > 0) {
