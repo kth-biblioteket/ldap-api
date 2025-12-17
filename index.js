@@ -314,7 +314,8 @@ apiRoutes.post("/divamonkey", verifyToken, async function (req, res) {
 								"letaanstallda": process.env.LETAANSTALLDAAPIKEY,
 								"scopus": process.env.SCOPUSAPIKEY,
 								"wos": process.env.WOSAPIKEY,
-								"meili": process.env.MEILIPUBLIC
+								"meili": process.env.MEILIPUBLIC,
+								"meilimetadata": process.env.MEILIMETADATA
 							},
 							"token": req.token
 						});
@@ -368,7 +369,8 @@ apiRoutes.post("/apikeys", verifyToken, async function (req, res) {
 								"letaanstallda": process.env.LETAANSTALLDAAPIKEY,
 								"scopus": process.env.SCOPUSAPIKEY,
 								"wos": process.env.WOSAPIKEY,
-								"meili": process.env.MEILIPUBLIC
+								"meili": process.env.MEILIPUBLIC,
+								"meilimetadata": process.env.MEILIMETADATA
 							},
 							"token": req.token
 						});

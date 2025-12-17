@@ -62,6 +62,7 @@ LETAANSTALLDAAPIKEY=xxxxxxxxxxxxxxxx
 SCOPUSAPIKEY=xxxxxxxxxxxxxxxx
 WOSAPIKEY=xxxxxxxxxxxxxxxx
 MEILIPUBLIC=xxxxxxxxxxxxxxxx
+MEILIMETADATA=xxxxxxxxxxxxxxxx
 ```
 5. Skapa deploy_ref.yml i github actions
 6. Skapa deploy_prod.yml i github actions
